@@ -24,7 +24,7 @@ public:
 
 	rowvec computeOutput(const rowvec &input) const;
 
-	void learn(const Row<NetPoint> &trainingData, int iterations=2000);
+	void learn(const mat &positions,const mat &classifications, int iterations=2000);
 };
 
 

@@ -20,7 +20,7 @@ rowvec NeuralNet::computeOutput(const rowvec &input) const {
 	return result;
 }
 
-void NeuralNet::learn(const Row<NetPoint> &trainingData,int iterations){
+void NeuralNet::learn(const mat &positions,const mat &classifications, int iterations){
 
     int epsilon = 0.01; //# learning rate for gradient descent
     int reg_lambda = 0.01; //# regularization strength
@@ -34,27 +34,33 @@ void NeuralNet::learn(const Row<NetPoint> &trainingData,int iterations){
     mat W2 = layers[1].getW();
     mat b2 = layers[1].getB();
 
-    mat positions;
-    positions.zeros(trainingData.size(),2);
+    cout << "La"<< endl;
 
-    for (size_t i=0; i<trainingData.size(); ++i) {
-        positions(i,0)=trainingData[i].getCoordinates()[0];
-        positions(i,1)=trainingData[i].getCoordinates()[1];
-    }
+//    mat positions;
+//    positions.zeros(trainingData.size(),2);
+//
+//    for (size_t i=0; i<trainingData.size(); ++i) {
+//        positions(i,0)=trainingData[i].getCoordinates()[0];
+//        positions(i,1)=trainingData[i].getCoordinates()[1];
+//    }
 
     for (size_t i=0; i<iterations; ++i) {
 
-          mat z1 = positions*W1 + repmat(b1,trainingData.size(),1);
+          mat z1 = positions*W1 + repmat(b1,positions.size(),1);
           mat a1 = tanh(z1);
 
-          mat z2 = a1*W2 + repmat(b2,trainingData.size(),1);
+          cout << "Oreja"<< endl;
+
+          mat z2 = a1*W2 + repmat(b2,positions.size(),1);
           mat exp_scores = exp(z2);
           mat probs = exp_scores / repmat(sum(exp_scores, 1),1,2);
+
+          cout << "de"<< endl;
 
           mat delta3 = probs;
           int j;
           for(j=0;j<positions.n_rows;j++){
-              delta3(j,trainingData[j].getPointClass())-=1;
+              delta3(j,classifications[j])-=1;
           }
 
           mat dW2 = a1.t()*delta3;
