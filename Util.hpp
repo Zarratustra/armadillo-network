@@ -10,6 +10,10 @@
 using namespace arma;
 using namespace std;
 
+typedef rowvec (*ActivationFunction)(const rowvec &);
+
+typedef double (*LossFunction)(const rowvec &, const rowvec &);
+
 class Util {
 public:
 	static rowvec softMax(const rowvec &myInput);

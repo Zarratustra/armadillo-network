@@ -11,8 +11,6 @@
 using namespace std;
 using namespace arma;
 
-typedef rowvec (*ActivationFunction)(const rowvec &);
-
 class Layer {
 private:
 	unsigned layerSize, inputSize;

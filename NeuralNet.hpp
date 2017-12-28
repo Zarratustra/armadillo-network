@@ -7,6 +7,7 @@
 
 #include <armadillo>
 #include "Layer.hpp"
+#include "Util.hpp"
 #include <vector>
 using namespace std;
 using namespace arma;
@@ -14,9 +15,10 @@ using namespace arma;
 class NeuralNet {
 private:
 	vector<Layer> layers;
+	LossFunction lossFunction;
 
 public:
-	NeuralNet(const vector<unsigned>& layerSizes, unsigned outputSize, ActivationFunction = Util::softMax);
+	NeuralNet(const vector<unsigned>& layerSizes, unsigned outputSize, ActivationFunction = Util::softMax, LossFunction);
 	// layerSizes -> input of each layer
 
 	rowvec computeOutput(const rowvec &input);
