@@ -21,11 +21,11 @@ private:
 	ActivationFunction activationFunction;
 
 public:
+	Layer(unsigned lSize, unsigned iSize, ActivationFunction a = Util::softMax);
+
 	const ActivationFunction getActivationFunction() const;
 
 	void setActivationFunction(ActivationFunction a const);
-
-	Layer(unsigned lSize, unsigned iSize, ActivationFunction a = Util::softMax);
 
 	unsigned int getLayerSize() const;
 
