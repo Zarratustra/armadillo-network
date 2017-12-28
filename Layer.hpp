@@ -23,7 +23,7 @@ public:
 
 	const ActivationFunction getActivationFunction() const;
 
-	void setActivationFunction(ActivationFunction a const);
+	void setActivationFunction(ActivationFunction a);
 
 	unsigned int getLayerSize() const;
 

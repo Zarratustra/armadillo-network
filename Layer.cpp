@@ -8,7 +8,7 @@ const ActivationFunction Layer::getActivationFunction() const {
 	return activationFunction;
 }
 
-void Layer::setActivationFunction(ActivationFunction a const) {
+void Layer::setActivationFunction(ActivationFunction a) {
 	Layer::activationFunction = a;
 }
 

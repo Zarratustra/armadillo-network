@@ -4,7 +4,7 @@
 
 #include "NeuralNet.hpp"
 
-NeuralNet::NeuralNet(const vector<unsigned> &layerSizes, unsigned outputSize, ActivationFunction activationFunction, LossFunction lossFunction1) {
+NeuralNet::NeuralNet(const vector<unsigned> &layerSizes, unsigned outputSize, LossFunction lossFunction1, ActivationFunction activationFunction) {
 	for (size_t i=0; i<layerSizes.size()-1; ++i) {
 		layers.emplace_back(layerSizes[i], layerSizes[i + 1], activationFunction);
 	}

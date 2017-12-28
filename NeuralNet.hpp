@@ -18,7 +18,7 @@ private:
 	LossFunction lossFunction;
 
 public:
-	NeuralNet(const vector<unsigned>& layerSizes, unsigned outputSize, ActivationFunction = Util::softMax, LossFunction);
+	NeuralNet(const vector<unsigned>& layerSizes, unsigned outputSize, LossFunction, ActivationFunction = Util::softMax);
 	// layerSizes -> input of each layer
 
 	rowvec computeOutput(const rowvec &input) const;
