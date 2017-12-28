@@ -37,7 +37,7 @@ public:
 
 	const mat &getW() const;
 
-	rowvec computeOutput(const rowvec &input);
+	rowvec computeOutput(const rowvec &input) const;
 
 };
 

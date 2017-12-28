@@ -46,7 +46,7 @@ const mat &Layer::getW() const {
 	return W;
 }
 
-rowvec Layer::computeOutput(const rowvec &input) {
+rowvec Layer::computeOutput(const rowvec &input) const {
 	rowvec tmpResult = input * W + b;
 	return activationFunction(tmpResult);
 }

@@ -17,6 +17,8 @@ typedef double (*LossFunction)(const rowvec &, const rowvec &);
 class Util {
 public:
 	static rowvec softMax(const rowvec &myInput);
+
+	static double crossEntropyLoss(const rowvec &input, const rowvec &expectedOutput);
 };
 
 

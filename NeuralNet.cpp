@@ -12,7 +12,7 @@ NeuralNet::NeuralNet(const vector<unsigned> &layerSizes, unsigned outputSize, Ac
 	this->lossFunction = lossFunction1;
 }
 
-rowvec NeuralNet::computeOutput(const rowvec &input) {
+rowvec NeuralNet::computeOutput(const rowvec &input) const {
 	rowvec result = layers.at(0).computeOutput(input);
 	for (size_t i = 1; i < layers.size(); ++i) {
 		result = layers[i].computeOutput(result);

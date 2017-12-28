@@ -21,7 +21,9 @@ public:
 	NeuralNet(const vector<unsigned>& layerSizes, unsigned outputSize, ActivationFunction = Util::softMax, LossFunction);
 	// layerSizes -> input of each layer
 
-	rowvec computeOutput(const rowvec &input);
+	rowvec computeOutput(const rowvec &input) const;
+
+	void learn(const rowvec &input, const rowvec &expectedOutput);
 };
 
 
