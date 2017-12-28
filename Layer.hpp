@@ -33,6 +33,8 @@ public:
 
 	void setInputSize(unsigned int inputSize);
 
+	void randomize();
+
 	const rowvec &getB() const;
 
 	const mat &getW() const;

@@ -46,6 +46,10 @@ const mat &Layer::getW() const {
 	return W;
 }
 
+void Layer::randomize(){
+    W=randu<mat>(inputSize, layerSize);
+}
+
 rowvec Layer::computeOutput(const rowvec &input) const {
 	rowvec tmpResult = input * W + b;
 	return activationFunction(tmpResult);

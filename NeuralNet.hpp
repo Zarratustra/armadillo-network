@@ -6,6 +6,7 @@
 #define ARMADILLO_NETWORK_NEURALNET_HPP
 
 #include <armadillo>
+#include "NetPoint.hpp"
 #include "Layer.hpp"
 #include "Util.hpp"
 #include <vector>
@@ -23,7 +24,7 @@ public:
 
 	rowvec computeOutput(const rowvec &input) const;
 
-	void learn(const rowvec &input, const rowvec &expectedOutput);
+	void learn(const Row<NetPoint> &trainingData, int iterations=2000);
 };
 
 
