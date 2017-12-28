@@ -5,13 +5,14 @@
 #ifndef ARMADILLO_NETWORK_UTIL_HPP
 #define ARMADILLO_NETWORK_UTIL_HPP
 
-#include <vector>
+#include <armadillo>
 #include <cmath>
+using namespace arma;
 using namespace std;
 
 class Util {
 public:
-	static vector<double> softMax(const vector<double> &myInput);
+	static rowvec softMax(const rowvec &myInput);
 };
 
 

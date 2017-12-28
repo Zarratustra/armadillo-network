@@ -4,7 +4,7 @@
 
 #include "NetPoint.hpp"
 
-set<unsigned> NetPoint::POINT_CLASSES = set<unsigned>({0, 1 });
+const set<unsigned> NetPoint::POINT_CLASSES = set<unsigned>({0, 1 });
 
 
 const vector<double> &NetPoint::getCoordinates() const {

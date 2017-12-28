@@ -4,9 +4,9 @@
 
 #include "Util.hpp"
 
-vector<double> Util::softMax(const vector<double> &myInput) {
+rowvec Util::softMax(const rowvec&myInput) {
 
-	vector<double> toReturn(myInput.size());
+	rowvec toReturn(myInput.size());
 	double bot = 0;
 	for (double j : myInput) {
 		bot += exp(j);
