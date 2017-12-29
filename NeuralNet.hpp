@@ -20,7 +20,7 @@ private:
 
 public:
 	NeuralNet(const vector<unsigned>& layerSizes, unsigned outputSize, LossFunction, ActivationFunction = Util::softMax);
-	// layerSizes -> input of each layer
+	// layerSizes -> input of each layer (without input layer, that usually is added only to copy input data)
 
 	rowvec computeOutput(const rowvec &input) const;
 

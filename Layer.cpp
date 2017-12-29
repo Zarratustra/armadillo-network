@@ -12,7 +12,7 @@ void Layer::setActivationFunction(ActivationFunction a) {
 	Layer::activationFunction = a;
 }
 
-Layer::Layer(const unsigned lSize, unsigned iSize, ActivationFunction a)
+Layer::Layer(unsigned iSize, unsigned lSize, ActivationFunction a)
 :layerSize(lSize)
 ,inputSize(iSize)
 ,b(lSize, fill::zeros)

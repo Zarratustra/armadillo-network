@@ -27,12 +27,16 @@ int main()
 	mat positions;
     mat y;
 
-    positions.load("positions.csv");
+    positions.load("positions.csv", csv_ascii);
     y.load("przynaleznosc.csv");
 
-    vector<unsigned> layerSizes = vector<unsigned>({2, 5 });
+	cout << "Positions size: " << positions.n_rows << " " << positions.n_cols << endl;
+	cout << "y size: " << y.n_rows << " " << y.n_cols << endl;
 
-    NeuralNet* net = new NeuralNet(layerSizes,2,NULL);
+
+    vector<unsigned> layerSizes = vector<unsigned>({2, 5});
+
+    NeuralNet* net = new NeuralNet(layerSizes,2, nullptr);
 
     net->learn(positions,y);
 
