@@ -22,8 +22,8 @@ rowvec NeuralNet::computeOutput(const rowvec &input) const {
 
 void NeuralNet::learn(const mat &positions,const mat &classifications, int iterations){
 
-    int epsilon = 0.01; //# learning rate for gradient descent
-    int reg_lambda = 0.01; //# regularization strength
+    double epsilon = 0.01; //# learning rate for gradient descent
+    double reg_lambda = 0.01; //# regularization strength
 
     for (size_t i=0; i<layers.size(); ++i) {
         layers[i].randomize();
@@ -91,12 +91,15 @@ void NeuralNet::learn(const mat &positions,const mat &classifications, int itera
             dW2 += reg_lambda * W2;
             dW1 += reg_lambda * W1;
 //		cout << "ddd" << endl;
+
+//            cout << "dW1" << endl << dW1 << endl;
+//            cout << "przystosowane: " << endl << (-epsilon * dW1) << endl;
 //
 //        //        # Gradient descent parameter update
-            W1 += -epsilon * dW1;
-            b1 += -epsilon * db1;
-            W2 += -epsilon * dW2;
-            b2 += -epsilon * db2;
+            W1 = W1 + (-epsilon * dW1);
+            b1 = b1 + (-epsilon * db1);
+            W2 = W2 + (-epsilon * dW2);
+            b2 = b2 + (-epsilon * db2);
 //		cout << "eee"  << endl;
     }
 
