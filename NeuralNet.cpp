@@ -37,6 +37,16 @@ void NeuralNet::learn(const mat &positions,const mat &classifications, int itera
 
     cout << "La"<< endl;
 
+    cout << "W1 " << W1.n_rows << " " << W1.n_cols << endl;
+    cout << W1 << endl;
+    cout << "W2 " << W2.n_rows << " " << W2.n_cols << endl;
+    cout << W2 << endl;
+    cout << "b1 " << b1.n_rows << " " << b1.n_cols << endl;
+    cout << b1 << endl;
+    cout << "b2 " << b2.n_rows << " " << b2.n_cols << endl;
+    cout << b2 << endl;
+
+
 //    mat positions;
 //    positions.zeros(trainingData.size(),2);
 //
@@ -50,13 +60,13 @@ void NeuralNet::learn(const mat &positions,const mat &classifications, int itera
           mat z1 = positions*W1 + repmat(b1, positions.n_rows, 1);
           mat a1 = tanh(z1);
 
-          cout << "Oreja"<< endl;
+//          cout << "Oreja"<< endl;
 
           mat z2 = a1*W2 + repmat(b2,positions.n_rows,1);
           mat exp_scores = exp(z2);
           mat probs = exp_scores / repmat(sum(exp_scores, 1),1,2);
 
-          cout << "de"<< endl;
+//          cout << "de"<< endl;
 
           mat delta3 = probs;
           int j;
@@ -64,28 +74,42 @@ void NeuralNet::learn(const mat &positions,const mat &classifications, int itera
               delta3(j,classifications[j])-=1;
           }
 
-		cout << "aaa" << endl;
+//		cout << "aaa" << endl;
           mat dW2 = a1.t()*delta3;
           mat db2 =sum(delta3,0);
 
-		cout << "bbb" << endl;
-          mat delta2 = (delta3*W2.t()) * (1-pow(a1,2));
+//		cout << "bbb" << endl;
+		    mat temp = delta3*W2.t();
+//		    cout << "zzz" << endl;
+          mat delta2 = (temp) % (1-pow(a1,2));
+//          cout << "yyy" << endl;
           mat dW1 = positions.t()*delta2;
           mat db1 = sum(delta2, 0);
 
-		cout << "ccc" << endl;
+//		cout << "ccc" << endl;
 //        //        # Add regularization terms (b1 and b2 don't have regularization terms)
             dW2 += reg_lambda * W2;
             dW1 += reg_lambda * W1;
-		cout << "ddd" << endl;
+//		cout << "ddd" << endl;
 //
 //        //        # Gradient descent parameter update
             W1 += -epsilon * dW1;
             b1 += -epsilon * db1;
             W2 += -epsilon * dW2;
             b2 += -epsilon * db2;
-		cout << "eee"  << endl;
+//		cout << "eee"  << endl;
     }
+
+    cout << "------------------------------------------------" << endl;
+
+     cout << "W1 " << W1.n_rows << " " << W1.n_cols << endl;
+        cout << W1 << endl;
+        cout << "W2 " << W2.n_rows << " " << W2.n_cols << endl;
+        cout << W2 << endl;
+        cout << "b1 " << b1.n_rows << " " << b1.n_cols << endl;
+        cout << b1 << endl;
+        cout << "b2 " << b2.n_rows << " " << b2.n_cols << endl;
+        cout << b2 << endl;
 
 
 
