@@ -42,29 +42,29 @@ int main()
 //	cout << "y size: " << y.n_rows << " " << y.n_cols << endl;
 
 
-    vector<unsigned> layerSizes = vector<unsigned>({2, 5});
+    vector<unsigned> layerSizes = vector<unsigned>({2, 3});
 
     NeuralNet net(layerSizes,2, nullptr);
 
     net.learn(positions,y);
 
-    rowvec maxes = max(positions,0);
-    rowvec mins = min(positions,0);
+    rowvec maxes = max(positions,0) + 0.5;
+    rowvec mins = min(positions,0) - 0.5;
 
-    int nPoints = 100;
+    int nPoints = 200;
 
     vec xx = linspace<vec>(mins(0), maxes(0), nPoints);
     vec yy = linspace<vec>(mins(1), maxes(1), nPoints);
 
 //    cout << "Maks" << maxes << "min " << mins << endl;
 
-    for(int i=0;i<nPoints;i++){
-        for(int j=0;j<nPoints;j++){
+    for(int j=0;j<nPoints;j++){
+        for(int i=0;i<nPoints;i++){
 //        cout << "Aha" << endl;
             rowvec input = { xx(i),yy(j) };
 //            cout << "Czego?" << endl;
             rowvec output = net.computeOutput(input);
-            cout << xx(i) << "," << yy(j) << "," << rightRound(output(0)) << endl;
+            cout << xx(i) << "," << yy(j) << "," << rightRound(output(1)) << endl;
         }
     }
 

@@ -96,14 +96,19 @@ void NeuralNet::learn(const mat &positions,const mat &classifications, int itera
 
 //            cout << "dW1" << endl << dW1 << endl;
 //            cout << "przystosowane: " << endl << (-epsilon * dW1) << endl;
-//
-//        //        # Gradient descent parameter update
+
+        //        # Gradient descent parameter update
             W1 = W1 + (-epsilon * dW1);
             b1 = b1 + (-epsilon * db1);
             W2 = W2 + (-epsilon * dW2);
             b2 = b2 + (-epsilon * db2);
 //		cout << "eee"  << endl;
     }
+
+    layers[0].W = W1;
+    layers[0].b = b1;
+    layers[1].W = W2;
+    layers[1].b = b2;
 
 //    cout << "------------------------------------------------" << endl;
 //

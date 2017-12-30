@@ -47,7 +47,7 @@ const mat &Layer::getW() const {
 }
 
 void Layer::randomize(){
-    W=randu<mat>(inputSize, layerSize);
+    W=randu<mat>(inputSize, layerSize) / sqrt(W.n_rows);
 }
 
 rowvec Layer::computeOutput(const rowvec &input) const {

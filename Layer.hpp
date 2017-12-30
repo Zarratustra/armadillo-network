@@ -14,11 +14,13 @@ using namespace arma;
 class Layer {
 private:
 	unsigned layerSize, inputSize;
-	rowvec b;
-	mat W;
+
 	ActivationFunction activationFunction;
 
 public:
+    rowvec b;
+	mat W;
+
 	Layer(unsigned iSize, unsigned lSize, ActivationFunction a = Util::softMax);
 
 	const ActivationFunction getActivationFunction() const;
