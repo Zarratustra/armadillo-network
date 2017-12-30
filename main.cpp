@@ -36,9 +36,9 @@ int main()
 
     vector<unsigned> layerSizes = vector<unsigned>({2, 5});
 
-    NeuralNet* net = new NeuralNet(layerSizes,2, nullptr);
+    NeuralNet net(layerSizes,2, nullptr);
 
-    net->learn(positions,y);
+    net.learn(positions,y);
 
 	return 0;
 }
