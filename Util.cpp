@@ -4,7 +4,7 @@
 
 #include "Util.hpp"
 
-rowvec Util::softMax(const rowvec&myInput) {
+rowvec Util::softMax(const rowvec &myInput) {
 
 	rowvec toReturn(myInput.size());
 	double bot = 0;
@@ -16,4 +16,8 @@ rowvec Util::softMax(const rowvec&myInput) {
 		toReturn[i] = exp(myInput[i]) / bot;
 	}
 	return toReturn;
+}
+
+rowvec Util::tanhehe(const rowvec &myInput) {
+	return tanh(myInput);
 }

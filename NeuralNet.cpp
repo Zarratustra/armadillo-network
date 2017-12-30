@@ -5,14 +5,16 @@
 #include "NeuralNet.hpp"
 
 NeuralNet::NeuralNet(const vector<unsigned> &layerSizes, unsigned outputSize, LossFunction lossFunction1, ActivationFunction activationFunction) {
+
 	for (size_t i=0; i<layerSizes.size()-1; ++i) {
-		layers.emplace_back(layerSizes[i], layerSizes[i + 1], activationFunction);
+		layers.emplace_back(layerSizes[i], layerSizes[i + 1], Util::tanhehe);
 	}
 	layers.emplace_back(layerSizes.back(), outputSize, activationFunction);
 	this->lossFunction = lossFunction1;
 }
 
 rowvec NeuralNet::computeOutput(const rowvec &input) const {
+//    cout << "No me digas nada" << endl;
 	rowvec result = layers.at(0).computeOutput(input);
 	for (size_t i = 1; i < layers.size(); ++i) {
 		result = layers[i].computeOutput(result);
@@ -28,23 +30,23 @@ void NeuralNet::learn(const mat &positions,const mat &classifications, int itera
     for (size_t i=0; i<layers.size(); ++i) {
         layers[i].randomize();
     }
-	cout << "Layers size: " << layers.size() << endl;
+//	cout << "Layers size: " << layers.size() << endl;
 
     mat W1 = layers[0].getW();
     mat b1 = layers[0].getB();
     mat W2 = layers[1].getW();
     mat b2 = layers[1].getB();
 
-    cout << "La"<< endl;
-
-    cout << "W1 " << W1.n_rows << " " << W1.n_cols << endl;
-    cout << W1 << endl;
-    cout << "W2 " << W2.n_rows << " " << W2.n_cols << endl;
-    cout << W2 << endl;
-    cout << "b1 " << b1.n_rows << " " << b1.n_cols << endl;
-    cout << b1 << endl;
-    cout << "b2 " << b2.n_rows << " " << b2.n_cols << endl;
-    cout << b2 << endl;
+//    cout << "La"<< endl;
+//
+//    cout << "W1 " << W1.n_rows << " " << W1.n_cols << endl;
+//    cout << W1 << endl;
+//    cout << "W2 " << W2.n_rows << " " << W2.n_cols << endl;
+//    cout << W2 << endl;
+//    cout << "b1 " << b1.n_rows << " " << b1.n_cols << endl;
+//    cout << b1 << endl;
+//    cout << "b2 " << b2.n_rows << " " << b2.n_cols << endl;
+//    cout << b2 << endl;
 
 
 //    mat positions;
@@ -103,16 +105,16 @@ void NeuralNet::learn(const mat &positions,const mat &classifications, int itera
 //		cout << "eee"  << endl;
     }
 
-    cout << "------------------------------------------------" << endl;
-
-     cout << "W1 " << W1.n_rows << " " << W1.n_cols << endl;
-        cout << W1 << endl;
-        cout << "W2 " << W2.n_rows << " " << W2.n_cols << endl;
-        cout << W2 << endl;
-        cout << "b1 " << b1.n_rows << " " << b1.n_cols << endl;
-        cout << b1 << endl;
-        cout << "b2 " << b2.n_rows << " " << b2.n_cols << endl;
-        cout << b2 << endl;
+//    cout << "------------------------------------------------" << endl;
+//
+//     cout << "W1 " << W1.n_rows << " " << W1.n_cols << endl;
+//        cout << W1 << endl;
+//        cout << "W2 " << W2.n_rows << " " << W2.n_cols << endl;
+//        cout << W2 << endl;
+//        cout << "b1 " << b1.n_rows << " " << b1.n_cols << endl;
+//        cout << b1 << endl;
+//        cout << "b2 " << b2.n_rows << " " << b2.n_cols << endl;
+//        cout << b2 << endl;
 
 
 
