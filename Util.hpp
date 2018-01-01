@@ -12,7 +12,7 @@ using namespace std;
 
 typedef rowvec (*ActivationFunction)(const rowvec &);
 
-typedef double (*LossFunction)(const rowvec &, const rowvec &);
+typedef double (*LossFunction)(const mat &, const mat &);
 
 class Util {
 public:

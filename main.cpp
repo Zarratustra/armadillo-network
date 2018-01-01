@@ -15,6 +15,19 @@ int rightRound(double babyYouSpinMe){
     }
 }
 
+double lossFunction(const mat & positions, const mat & y)
+{
+	/*int sum = 0;
+	for(int i=0;i<300;i++)
+	{
+		rowvec input = { positions(i,0),positions(i,1) };
+		rowvec output = net.computeOutput(input);
+		if(rightRound(output(1)) == y(0,i))
+			sum++;
+	}
+	return sum*100/300;*/return 0;
+}
+
 int main()
 {
 //	cout << "No a teraz drogie dzieci" << "\n" ;
@@ -44,7 +57,7 @@ int main()
 
     vector<unsigned> layerSizes = vector<unsigned>({2, 3});
 
-    NeuralNet net(layerSizes,2, nullptr);
+    NeuralNet net(layerSizes,2, lossFunction);
 
     net.learn(positions,y);
 
@@ -67,6 +80,24 @@ int main()
             cout << xx(i) << "," << yy(j) << "," << rightRound(output(1)) << endl;
         }
     }
+    
+    mat test;
+    mat test_y;
+
+    test.load("test.csv", csv_ascii);
+    test_y.load("przynaleznosc_test.csv");
+    
+    int sum = 0;
+	for(int i=0;i<300;i++)
+	{
+		rowvec input = { test(i,0),test(i,1) };
+		rowvec output = net.computeOutput(input);
+		if(rightRound(output(1)) == test_y(0,i))
+			sum++;
+	}
+	cout << (double)sum*100/300 << endl;
+    
+    //cout << net.lossFunction(test, test_y) << endl;
 
 	return 0;
 }

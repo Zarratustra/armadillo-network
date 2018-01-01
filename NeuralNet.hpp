@@ -16,7 +16,6 @@ using namespace arma;
 class NeuralNet {
 private:
 	vector<Layer> layers;
-	LossFunction lossFunction;
 
 public:
 	NeuralNet(const vector<unsigned>& layerSizes, unsigned outputSize, LossFunction, ActivationFunction = Util::softMax);
@@ -25,6 +24,8 @@ public:
 	rowvec computeOutput(const rowvec &input) const;
 
 	void learn(const mat &positions,const mat &classifications, int iterations=2000);
+	
+	LossFunction lossFunction;
 };
 
 
