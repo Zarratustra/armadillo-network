@@ -111,6 +111,7 @@ In our case - the classification problem - the input of the first layer will be 
 \section{The implementation}
 
 One of the advantages of the C++ language is its strong type system. It makes it much easier working with legacy code or with a library previously unknown to the programmer, because types alone can give a lot of information about what a given method or class is actually doing. We wanted to follow that path and we wanted our implementation to have types reflecting the mathematical model we described above. Armadillo provided us with classes for matrix and vector - \emph{mat} and \emph{rowvec}, what we have to do was to implement classes representing layer of the network and the whole network. (Actually we could also model perceptron as a separated class, but we decided not to do it as it would be too detalistic and would make things more complex and not more simple). Diagram of our classes with their interfaces can be seen on Figure \ref{fig:fig1} We designed the model in such way that it can support any size of input and output vector and any number of layers, however we used it only for input and output vectors of size two and three layers. It was proven that there is no point to further increase the number of layers, because any multi-layer network can be simulated on a three-layer one. (Except for a more advanced type of networks, called \emph{convolutional neural networks}, but that is a whole different story).
+Whole our implementation can be found on github: \url{https://github.com/Zarratustra/armadillo-network}
 
 \begin{figure}[h]
 	
@@ -122,67 +123,67 @@ One of the advantages of the C++ language is its strong type system. It makes it
 
 \section{The results}
 
-There is a danger that casts its shadow over all the machine learning and human learning as well. This danger is called \emph{overfitting}. It means that if a net, a method, a program, a human is trained only on a data from one training set it might become too adjusted to the training set so it will perform well on input from the training set, but perform poorly on any other input. To take this into account, a common practise in machine learning is to firstly generate a data set, and divide it randomly into two or more sets - first set will be training set, second will be test set. Other ones can be test or validation sets, according to the needs. The method is trained using the training set, and then the test set is used to measure how good the method actually is and if it can grasp the characteristics and regularities present it the whole data set, not only in the chunk of it that was passed as the input of the method. In our experiments, we wrote a Python script that generated for us data set of 1000 points divided into two classes (using function \texttt{sklearn.datasets.make\_moons} from the \texttt{scikit-learn} package), divided it randomly into 700-point training set and 300-point test set, and then finally saved them to csv files. Our C++ program with the neural net took those csv files as the input and produced its output also as a csv file. The form of the output that could be then plotted was a grid of evenly spread points together with their predicted classifications. This output was then read by another Python script that used \texttt{pyplot} package to generate png image with the plot. The results can be seen on Figures 4-10 - 'nodes' is the number of perceptrons in the hidden layer, 'quality' is the percentage of correct classifications in the test set, and epsilon and lambda are arbitrary parameters of the neural net. In gradient descent, epsilon determines how big should be the step in the direction pointed by the gradient, and lambda is the coefficient of the regularisation term introduced to prevent overfitting. We experimented with different values of epsilon and lambda, as well as with different amount of nodes. Experiments demonstrated that the optimal value of both epsilon and lambda is 0.01, other values can give catastrophic results. In the case of the number of nodes, choosing optimal value isn't so simple - it is always a tradeoff. Number of nodes determines how complex the decision boundary can be - when number of nodes is small, the boundary is almost linear (for two nodes it is exactly linear), when number of nodes is biger, the boundary can be more curved and irregular. So, when we choose number of nodes for our net 
+There is a danger that casts its shadow over all the machine learning and human learning as well. This danger is called \emph{overfitting}. It means that if a net, a method, a program, a human is trained only on a data from one training set it might become too adjusted to the training set so it will perform well on input from the training set, but perform poorly on any other input. To take this into account, a common practise in machine learning is to firstly generate a data set, and divide it randomly into two or more sets - first set will be training set, second will be test set. The method is trained using the training set, and then the test set is used to measure how good the method actually is and if it can grasp the characteristics and regularities present it the whole data set, not only in the chunk of it that was passed as the input of the method. In our experiments, we wrote a Python script that generated for us data set of 1000 points divided into two classes (using function \texttt{sklearn.datasets.make\_moons} from the \texttt{scikit-learn} package), divided it randomly into 700-point training set and 300-point test set, and then finally saved them to csv files. Our C++ program with the neural net took those csv files as the input and produced its output also as a csv file. The form of the output that could be then plotted was a grid of evenly spread points together with their predicted classifications. This output was then read by another Python script that used \texttt{pyplot} package to generate png image with the plot. The results can be seen on Figures 4-10 - 'nodes' is the number of perceptrons in the hidden layer, 'quality' is the percentage of correct classifications in the test set, and epsilon and lambda are arbitrary parameters of the neural net. In gradient descent, epsilon determines how big should be the step in the direction pointed by the gradient, and lambda is the coefficient of the regularisation term introduced to prevent overfitting. We experimented with different values of epsilon and lambda, as well as with different amount of nodes. Experiments demonstrated that the optimal value of both epsilon and lambda is 0.01, other values can give catastrophic results. In the case of the number of nodes, choosing optimal value isn't so simple - it is always a tradeoff. Number of nodes determines how complex the decision boundary can be - when number of nodes is small, the boundary is almost linear (for two nodes it is exactly linear), when number of nodes is bigger, the boundary can be more curved and irregular. So, when we choose number of nodes for our net we should know the nature of our data - the more complex our data is, the more nodes we need to be able to reflect that complexity. But on the other hand, number of nodes should not be increased endlessly - big amount of nodes can cause overfitting. Mataphorically we can say that number of nodes determines how 'clever' our net is and when the net will be 'too clever' for our data it will start seeing regularities that do not exist anywhere except the the training set. And, last but not least, more nodes means more computational cost both in terms of memory and time, because number of nodes is actually expressed in our model as size of W and b matrices. For data we had, the optimal number of nodes turned out to be five, but that was just because of the nature of our data and it doesn't mean that five will be a good number of nodes for any other data in any other place.
 
 
 
-\begin{figure}[h]
+\begin{figure}[h!]
 \label{fig:fig4}
   \includegraphics[width=\linewidth]{wykresy/1.png}
 	\caption{Result of our net - for two-node hidden layer separation of classes is almost linear}
 	\label{fig4}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[h!]
 \label{fig:fig4}
   \includegraphics[width=\linewidth]{wykresy/2.png}
 	\caption{Increasing value of lambda doesn't result in much change...}
 	\label{fig4}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[h!]
 \label{fig:fig4}
   \includegraphics[width=\linewidth]{wykresy/5.png}
 	\caption{But increasing epsilon does - the net becames useless assingning all points to the same class}
 	\label{fig4}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[h!]
 \label{fig:fig4}
   \includegraphics[width=\linewidth]{wykresy/10.png}
 	\caption{It turns out that changing the lambda sometimes is effectless and sometimes it isn't.}
 	\label{fig4}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[h!]
 \label{fig:fig5}
   \includegraphics[width=\linewidth]{wykresy/7.png}
 	\caption{ Increasing number of nodes from 2 to 3 gives much improvement}
 	\label{fig5}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[h!]
 \label{fig:fig5}
   \includegraphics[width=\linewidth]{wykresy/13.png}
 	\caption{ Five nodes - almost like three}
 	\label{fig5}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[h!]
 \label{fig:fig5}
   \includegraphics[width=\linewidth]{wykresy/19.png}
 	\caption{ Ten nodes - irregularities begin, quality of prediction decreases}
 	\label{fig5}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[h!]
 \label{fig:fig5}
   \includegraphics[width=\linewidth]{wykresy/20.png}
 	\caption{ Twenty nodes - quality improves a little bit, but does not reach the previous level}
 	\label{fig5}
 \end{figure}
 
-\begin{figure}[h]
+\begin{figure}[h!]
 \label{fig:fig5}
   \includegraphics[width=\linewidth]{wykresy/21.png}
 	\caption{ Fifty nodes - more irregularities, quality decreases again}
@@ -191,6 +192,7 @@ There is a danger that casts its shadow over all the machine learning and human 
 
 \section{The summary}
 
+In conclusion, we found out that an effective neural network can be implemented using very simple means. Also, we have some thoughts about the tools we used, C++ and Armadillo. C++ is a complex language, and understanding this complexity is required even for writing relatively simple programs. Therefore, C++ might be tricky for beginners (when preparing this article some of us programmed in C++ for the first time in their lives) but for experienced coders it is a powerful tool. Strong type system really helps. Possible extension that we could see would be to have size of matrices encoded in their types, because we often encountered exceptions about multiplying matrices of incompatible sizes. Such extension would require some type magic, but looking at how bizarre things can be achieved with Scala type system, we believe that something like this in C++ could also be done. Apart from that, Armadillo library turned out to be pretty elegant and easy to use. It's syntax mostly follows the syntax of Matlab/Octave. The only disadvantage that we found is that it does not have such large base of users as libraries for more popular languages like Numpy for Python, so there is significantly less resources on the internet, for example questions on Stack Overflow. But in general, we recommend everyone to follow our steps. 
 
 %\bibliography{mybibfile}
 
@@ -200,7 +202,9 @@ There is a danger that casts its shadow over all the machine learning and human 
 %   \bibitem{key}...
 %
 
- \bibitem{armadillo} Armadillo homepage http://arma.sourceforge.net
+ \bibitem{armadillo} Armadillo homepage: http://arma.sourceforge.net
+ 
+ \bibitem{Python} Implementing a Neural Network from Scratch in Python: http://www.wildml.com/2015/09/implementing-a-neural-network-from-scratch/
  
  \bibitem{stack} Stack overflow
 
