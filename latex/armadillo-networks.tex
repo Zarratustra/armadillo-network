@@ -1,8 +1,8 @@
 \documentclass[3p,twocolumn]{elsarticle}
 
 \usepackage[utf8]{inputenc}
-\usepackage[polish]{babel}
-\usepackage{polski}
+%\usepackage[polish]{babel}
+%\usepackage{polski}
 \usepackage{lineno,hyperref}
 \modulolinenumbers[5]
 
@@ -81,7 +81,7 @@ The problem that our network attempts to solve is the famous classification prob
 
 Such definition might sound very dry and mathematical, like the jargon that the scientists use to be perceived as more intelligent than everyone else, but let's show it on a real world example: election statistics. Suppose we have a two-dimesional space representing people. One dimension is the age, second dimension is the income level. Our classes will be political preferences - one class will be people supporting party A and the second class will be people supporting party B, because for some reason, we believe that age and income level is correlated with political preferences, so people of certain age and certain incomes will support party A, and people of different age and income will support party B. We believe that such correlation exists, but we don't know how does it exactly look like - in fact all we know is some set of people T, that we have actually reached out and asked such indiscrete questions like how old are you, how much do you earn and who do you vote for. What we want to do is to take the information from the set T and build a program that for any combination of age and income would tell us on which side of the barricade this combination is. We want to be able to create plot as in Figure \ref{fig:fig1}
 
-\begin{figure}[fig1]
+\begin{figure}[h]
 	
 \label{fig:fig1}
   \includegraphics[width=\linewidth]{figure_1.png}
@@ -99,7 +99,8 @@ So, what will be our parametrized function? Let us summon a mathematical abstrac
 \[ y = s(Wx + b) \]
 
 In our case - the classification problem - the input of the first layer will be $n$-dimensional vector of the point coordinates, and the output of the last layer will be $k$-dimensional vector where the i-th element will be the probability that the point belongs to the i-th class. The acitivation function is chosen arbitrarily - we chose $tanh$ - and W and b matrices of each layer are the parameters whose values we want to find. We find them by first assigning random values to them and then iteratively trying to improve them. What follows is a philosophical question: what does it mean to improve something? What does it mean to improve parameters? Is improvement something that can be measured or is it a matter of subjective feeling, perceived differently by every person? It turns out that in case of parameters, it can be measured. To do that, we introduce \emph{loss function} that will take as an input a points with known classifications and our whole network and will produce a single number saying how well does our net perform on this set of points, i.e. what is the percentage of points for which our net incorrectly guesses class membership. Therefore, when we iteratively try to improve parameters, we want to find new parameters for which the loss function of the net will be lower than for the previous ones. For that we use method called \emph{gradient descent} -  we compute gradients of the loss function with respect to the parameters ( $\frac{\partial L}{\partial W_1}$, $\frac{\partial L}{\partial b_1}$ and so on) and we 'move' the parameters in direction of those gradients therefore iteratively approaching the local minimum of the loss function. That of course means that depending on how we (randomly) choose initial values of the parameters we can get stuck in the local minimum and never achieve the global minimum that can be just few steps away. But well, that's life, nobody said it will be all pink and roses.
-\begin{figure}[fig2]
+
+\begin{figure}[h]
 	
 \label{fig:fig2}
   \includegraphics[width=\linewidth]{network-schema.png}
@@ -111,7 +112,7 @@ In our case - the classification problem - the input of the first layer will be 
 
 One of the advantages of the C++ language is its strong type system. It makes it much easier working with legacy code or with a library previously unknown to the programmer, because types alone can give a lot of information about what a given method or class is actually doing. We wanted to follow that path and we wanted our implementation to have types reflecting the mathematical model we described above. Armadillo provided us with classes for matrix and vector - \emph{mat} and \emph{rowvec}, what we have to do was to implement classes representing layer of the network and the whole network. (Actually we could also model perceptron as a separated class, but we decided not to do it as it would be too detalistic and would make things more complex and not more simple). Diagram of our classes with their interfaces can be seen on Figure \ref{fig:fig1} We designed the model in such way that it can support any size of input and output vector and any number of layers, however we used it only for input and output vectors of size two and three layers. It was proven that there is no point to further increase the number of layers, because any multi-layer network can be simulated on a three-layer one. (Except for a more advanced type of networks, called \emph{convolutional neural networks}, but that is a whole different story).
 
-\begin{figure}[fig2]
+\begin{figure}[b]
 	
 \label{fig:fig3}
   \includegraphics[width=0.60\textwidth]{uml-diagram.png}
@@ -120,6 +121,43 @@ One of the advantages of the C++ language is its strong type system. It makes it
 \end{figure}
 
 \section{The results}
+
+\begin{figure}[h]
+\label{fig:fig4}
+  \includegraphics[width=\linewidth]{wykresy/1.png}
+	\caption{Result of our net - for two-node hidden layer separation of classes is almost linear}
+	\label{fig4}
+\end{figure}
+
+\begin{figure}[h]
+\label{fig:fig4}
+  \includegraphics[width=\linewidth]{wykresy/2.png}
+	\caption{Increasing value of epsilon doesn't result in much change...}
+	\label{fig4}
+\end{figure}
+
+\begin{figure}[h]
+\label{fig:fig4}
+  \includegraphics[width=\linewidth]{wykresy/5.png}
+	\caption{But increasing of lambda does - the net becames useless assingning all points to the same class}
+	\label{fig4}
+\end{figure}
+
+\begin{figure}[h]
+\label{fig:fig5}
+  \includegraphics[width=\linewidth]{wykresy/7.png}
+	\caption{ Increasing number of nodes from 2 to 3 gives much improvement}
+	\label{fig5}
+\end{figure}
+
+\begin{figure}[h]
+\label{fig:fig5}
+  \includegraphics[width=\linewidth]{wykresy/13.png}
+	\caption{ Five nodes}
+	\label{fig5}
+\end{figure}
+
+\section{The summary}
 
 
 %\bibliography{mybibfile}
